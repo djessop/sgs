@@ -650,8 +650,12 @@ if __name__ == "__main__":
     prefix  = args.prefix + '_' + ''.join([replacements.get(c, c)
                                            for c in postfix])
     print(prefix)
-    
-    gdf = gpd.read_file(args.inputfile)
+
+    inputfile = Path(args.inputfile)
+    if inputfile.suffix == '.csv':
+        gdf = pd.read_csv(inputfile)  ## Plain pandas faster for csv files
+    else:
+        gdf = gpd.read_file(args.inputfile)
     if args.data_col not in gdf.columns:
         numeric_cols = [
             c for c in gdf.columns if pd.api.types.is_numeric_dtype(gdf[c])]
