@@ -655,7 +655,7 @@ if __name__ == "__main__":
     if inputfile.suffix == '.csv':
         gdf = pd.read_csv(inputfile)  ## Plain pandas faster for csv files
     else:
-        gdf = gpd.read_file(args.inputfile)
+        gdf = gpd.read_file(inputfile)
     if args.data_col not in gdf.columns:
         numeric_cols = [
             c for c in gdf.columns if pd.api.types.is_numeric_dtype(gdf[c])]
