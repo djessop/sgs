@@ -5,6 +5,7 @@ results/
 my_sgs.*
 sgs_co2_flux.*
 *.py~
+*.ipynb*
 *.png*
 *.zip
 test.json
