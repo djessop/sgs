@@ -1,0 +1,10 @@
+__pycache__/
+.ipynb_checkpoints
+figures/
+results/
+my_sgs.*
+sgs_co2_flux.*
+*.py~
+*.png*
+*.zip
+test.json

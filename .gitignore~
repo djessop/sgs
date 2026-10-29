@@ -1,0 +1,5 @@
+__pycache__/
+my_sgs.*
+sgs_co2_flux.*
+*.py~
+*.png*
