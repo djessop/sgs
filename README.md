@@ -54,5 +54,6 @@ Y="Y"		  # "Vertical" coordinate (e.g. latitude)
 C="Bed"		  # Column containing values to interpolate
 N=200		  # Run N realisations
 J=-1		  # -1: Use all available processors
-python sgs.py $FILE -g 5 -j 8 -x $X -y $Y -c $C -n 2000 -f $PARS -j $J
+RES=500		  # Resolution of sGs calculation, in grid units (e.g. m)
+python sgs.py $FILE -g $RES -j 8 -x $X -y $Y -c $C -n 2000 -f $PARS -j $J
 ```
