@@ -88,6 +88,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import json
 
 
 # --------------------------------------------------------------------------
@@ -375,7 +376,7 @@ def run_sgs(df, x=None, y=None, z=None,
             n_grid_target=60, max_neighbors=24,
             search_radius=None, n_lags=11,
             variogram_model="spherical",
-            variogram_fit=True,
+            variogram_fit=None,
             seed=None, n_jobs=1, bounds=None):
     """Full SGS pipeline on a (Geo)DataFrame. Returns a dict with grid
     arrays, all realisations, E-type mean/std, and diagnostic info.
@@ -397,7 +398,12 @@ def run_sgs(df, x=None, y=None, z=None,
     g = nst.forward(v)
 
     lags, gamma, counts = experimental_variogram(xs, ys, g, n_lags=n_lags)
-    vparams = fit_variogram(lags, gamma, model=variogram_model)
+    if variogram_fit is None:
+        vparams = fit_variogram(lags, gamma, model=variogram_model)
+    else:
+        with open(variogram_fit, 'r') as f:
+            vparams = VariogramParams(**json.load(f))
+
     cov_func, total_sill = covariance_function(vparams)
 
     pad = 0.05 * max(xs.max() - xs.min(), 
