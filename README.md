@@ -4,12 +4,12 @@ import pandas as pd
 import json
 from sgs import (NormalScoreTransform, VariogramParams, experimental_variogram,
 	         spherical, exponential, gaussian_model, MODELS, fit_variogram,
-		 man_variogram, _get_xy)
+		 man_variogram)
 
 
 data = pd.read_csv('example.csv')
 x_col, y_col, value_col = 'X', 'Y', 'Bed'
-x, y, x_label, y_label  = _get_xy(data, x_col, y_col)
+x, y = data[x_col], data[y_col]
 values = data[value_col].to_numpy(dtype=float)
 
 # Normal transform values -- essential for sGs
