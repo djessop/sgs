@@ -1,15 +1,16 @@
 # Variogram calculation
+
+Calculate and view experimental and model variograms
 ```python
 import pandas as pd
 import json
-from sgs import (NormalScoreTransform, VariogramParams, experimental_variogram,
-	         spherical, exponential, gaussian_model, MODELS, fit_variogram,
-		 man_variogram)
+from sgs import (NormalScoreTransform, experimental_variogram, spherical,
+		 exponential, gaussian_model, MODELS, fit_variogram, _get_xy)
 
 
-data = pd.read_csv('example.csv')
+data = pd.read_csv('example.csv', comment='#')
 x_col, y_col, value_col = 'X', 'Y', 'Bed'
-x, y = data[x_col], data[y_col]
+x, y, x_label, y_label  = _get_xy(data, x_col, y_col)
 values = data[value_col].to_numpy(dtype=float)
 
 # Normal transform values -- essential for sGs
@@ -31,8 +32,10 @@ plt.legend()
 plt.xlabel('Lags/[m]', fontsize='large')
 plt.ylabel('Variogram/[-]', fontsize='large')
 plt.show()
+```
 
-# Save best choice of parameters to a json file
+Save best choice of parameters to a json file
+```python
 best_model = 'spherical'  # choice: ('spherical'|'exponential'|'gaussian_model')
 vp = fit_variogram(lags, gamma, best_model)
 
@@ -42,7 +45,14 @@ with open('params.json', 'w') as f:
 
 # Run sGs calculation
 
+Here, we will use the ```variogram_fit``` option to use the fitted variogram parameters.  
 ```bash
-FILE=</path/to/data/>
-python sgs.py $FILE -g 5 -j 8 -p <prefix> -c <column_containing_data> -n 2000
+FILE=example.csv  # </path/to/data/>
+PARS=params.json  # </path/to/params/file/>
+X="X"		  # "Horizontal" coordinate (e.g. longitude)
+Y="Y"		  # "Vertical" coordinate (e.g. latitude)
+C="Bed"		  # Column containing values to interpolate
+N=200		  # Run N realisations
+J=-1		  # -1: Use all available processors
+python sgs.py $FILE -g 5 -j 8 -x $X -y $Y -c $C -n 2000 -f $PARS -j $J
 ```
