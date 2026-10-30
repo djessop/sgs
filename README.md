@@ -55,5 +55,5 @@ C="Bed"		  # Column containing values to interpolate
 N=200		  # Run N realisations
 J=-1		  # -1: Use all available processors
 RES=500		  # Resolution of sGs calculation, in grid units (e.g. m)
-python sgs.py $FILE -g $RES -j 8 -x $X -y $Y -c $C -n 2000 -f $PARS -j $J
+python sgs.py $FILE -g $RES -j $J -x $X -y $Y -c $C -n $N -f $PARS
 ```
