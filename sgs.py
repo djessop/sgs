@@ -653,13 +653,17 @@ if __name__ == "__main__":
     replacements = {'^': '', ']': '', '[': '', ' ': '_', 
                     '/': '_', '2': '2', '_': '_', '%': '%'}
     postfix = args.data_col
-    prefix  = args.prefix + '_' + ''.join([replacements.get(c, c)
-                                           for c in postfix])
+    
+    prefix  = args.prefix 
+    if args.prefix != "":
+        prefix += '_' 
+    prefix += ''.join([replacements.get(c, c) for c in postfix])
     print(prefix)
 
     inputfile = Path(args.inputfile)
     if inputfile.suffix == '.csv':
-        gdf = pd.read_csv(inputfile)  ## Plain pandas faster for csv files
+        ## Plain pandas faster for csv files
+        gdf = pd.read_csv(inputfile, comment='#')  
     else:
         gdf = gpd.read_file(inputfile)
     if args.data_col not in gdf.columns:
