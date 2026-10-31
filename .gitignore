@@ -9,3 +9,4 @@ sgs_co2_flux.*
 *.png*
 *.zip
 test.json
+*.out
