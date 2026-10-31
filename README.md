@@ -5,7 +5,8 @@ Calculate and view experimental and model variograms
 import pandas as pd
 import json
 from sgs import (NormalScoreTransform, experimental_variogram, spherical,
-		 exponential, gaussian_model, MODELS, fit_variogram, _get_xy)
+		 exponential, gaussian_model, MODELS, fit_variogram,
+		 man_variogram, _get_xy)
 
 
 data = pd.read_csv('example.csv', comment='#')
@@ -43,6 +44,15 @@ with open('params.json', 'w') as f:
     json.dump(vp.to_dict(), f)
 ```
 
+Alternatively, hand-picked parameter values can be specified as
+```python
+vp = man_variogram(model_choice, nugget_choice, sill_choice, range_choice)
+
+with open('params.json', 'w') as f:
+    json.dump(vp.to_dict(), f)
+```
+
+
 # Run sGs calculation
 
 Here, we will use the ```variogram_fit``` option to use the fitted variogram parameters.  
@@ -52,9 +62,11 @@ PARS=params.json  # </path/to/params/file/>
 X="X"		  # "Horizontal" coordinate (e.g. longitude)
 Y="Y"		  # "Vertical" coordinate (e.g. latitude)
 C="Bed"		  # Column containing values to interpolate
-N=200		  # Run N realisations
+N=10		  # Run N realisations
 J=-1		  # -1: Use all available processors
 P="Example"	  # Prefix for output
 RES=500		  # Resolution of sGs calculation, in grid units
 python sgs.py $FILE -g $RES -j $J -x $X -y $Y -c $C -n $N -f $PARS -p $P
 ```
+
+Please be aware that the supplied dataset is quite large (4878 rows), so running more than a few realisations can be very lengthy.
