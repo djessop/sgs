@@ -81,7 +81,6 @@ from numpy.typing import ArrayLike
 from typing import List, Dict, Tuple
 from dataclasses import dataclass, field, asdict
 
-import argparse
 import os
 import re
 import numpy as np
@@ -597,6 +596,8 @@ def save_outputs(results, outdir, prefix, n_realisations):
 
 
 if __name__ == "__main__":
+    import argparse
+
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)

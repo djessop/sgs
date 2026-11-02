@@ -71,4 +71,4 @@ RES=500		  # Resolution of sGs calculation, in grid units
 python sgs.py $FILE -g $RES -j $J -x "$X" -y "$Y" -c "$C" -n $N -f $PARS -p $P
 ```
 
-Please be aware that the supplied dataset is quite large (4878 rows), so running more than a few realisations can be very lengthy.
+Please be aware that the supplied dataset is quite large (4878 rows), so running more than a few realisations can be very lengthy (computational complexity scales as O(N³) -- https://arxiv.org/abs/2602.03483)
