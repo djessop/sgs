@@ -399,8 +399,10 @@ def run_sgs(df, x=None, y=None, z=None,
 
     lags, gamma, counts = experimental_variogram(xs, ys, g, n_lags=n_lags)
     if variogram_fit is None:
+        print("Automatically-calculated model variogram")
         vparams = fit_variogram(lags, gamma, model=variogram_model)
     else:
+        print("User-provided model variogram")
         with open(variogram_fit, 'r') as f:
             vparams = VariogramParams(**json.load(f))
 
@@ -640,7 +642,7 @@ if __name__ == "__main__":
 
     args = ap.parse_args()
 
-    print(f"\nInput file: {args.inputfile}\n")
+    # print(f"\nInput file: {args.inputfile}\n")
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
