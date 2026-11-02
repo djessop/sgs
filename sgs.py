@@ -398,6 +398,7 @@ def run_sgs(df, x=None, y=None, z=None,
     g = nst.forward(v)
 
     lags, gamma, counts = experimental_variogram(xs, ys, g, n_lags=n_lags)
+    print(f"Variogram: {variogram_fit}")
     if variogram_fit is None:
         print("Automatically-calculated model variogram")
         vparams = fit_variogram(lags, gamma, model=variogram_model)
