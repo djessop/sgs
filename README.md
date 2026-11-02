@@ -52,6 +52,8 @@ with open('params.json', 'w') as f:
     json.dump(vp.to_dict(), f)
 ```
 
+![Example of visual output](results/Greenland_data_Bed_variogram.png)
+
 
 # Run sGs calculation
 
