@@ -72,3 +72,24 @@ python sgs.py $FILE -g $RES -j $J -x "$X" -y "$Y" -c "$C" -n $N -f $PARS -p $P
 ```
 
 Please be aware that the supplied dataset is quite large (4878 rows), so running more than a few realisations can be very lengthy (computational complexity scales as O(N³) -- https://arxiv.org/abs/2602.03483)
+
+## Key flags
+| Option | Default | Meaning |
+|---|---|---|
+| -c/--data-col       | | column to interpolate (required)		      |
+| -x/-y               | | coordinate columns (optional; default: derive from  |
+|                     | |   geometry, auto-projecting to a local UTM CRS if   |
+|                     | |   the data is in lon/lat degrees)                   |
+| --group-by          | | optional column; run one independent SGS per group  |
+|                     | |   (e.g. "year") instead of one run over everything  |
+| -j/--n-jobs         | 1 | realisations to run in parallel: 1=sequential     |
+|                     |   | (default), -1=all CPU cores, N = N cores          |
+| -n/--n-realisations | 20 | total number of realisations                     |
+| -g/--grid-res       | None |grid resolution (in UTM units/[m])              |
+| -m/--max-neighbors  | 24 | max number of neighbouring values to use in kdir |
+| -l/--n-lags         | 12 | number of lags			   	      |
+| -v/--variogram-model| "spherical" | form of the variogram model  	      |
+| -f/--variogram-fit  | None | path to fitted variogram parameters 	      |
+| -s/--seed           | 42 | random seed value			   	      |
+| -p/--prefix         | prefix to add before data and figures      	      |
+| --min-points	      | 20 | skip a group if fewer valid points    	      |
